@@ -26,6 +26,10 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import AppHeader from './src/screens/AppHeader';
+import AppMain from './src/screens/AppMain';
+import Maind from './src/screens/AppMain';
+import Main from './src/screens/AppMain';
 
 const Section: React.FC<
   PropsWithChildren<{
@@ -35,6 +39,7 @@ const Section: React.FC<
   const isDarkMode = useColorScheme() === 'dark';
   return (
     <View style={styles.sectionContainer}>
+      <Text>안녕!</Text>
       <Text
         style={[
           styles.sectionTitle,
@@ -70,25 +75,12 @@ const App = () => {
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
-        <Header />
+        <AppHeader></AppHeader>
         <View
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
+          <AppMain></AppMain>
         </View>
       </ScrollView>
     </SafeAreaView>
