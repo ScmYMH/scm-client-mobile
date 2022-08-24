@@ -6,36 +6,55 @@ import {
   Alert,
   TouchableOpacity,
   TextInput,
+  ScrollView,
 } from 'react-native';
-import React, {useState} from 'react';
-import DatePicker from 'react-native-date-picker';
+import React, {useEffect, useState} from 'react';
 import CalendarMonthIcon from 'react-native-vector-icons/MaterialIcons';
 import {Table, TableWrapper, Row, Rows} from 'react-native-table-component';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import DateTimePicker from 'react-native-modal-datetime-picker';
 const AppMain = ({}) => {
-  const [date, setDate] = useState(new Date());
-  const [open, setOpen] = useState(false);
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+
+  const showDatePicker = () => {
+    setDatePickerVisibility(true);
+  };
+
+  const hideDatePicker = () => {
+    setDatePickerVisibility(false);
+  };
+  var selectedDate = new Date();
+  const handleConfirm = (date: Date) => {
+    console.warn('A date has been picked: ', date);
+
+    selectedDate = date;
+    console.warn('dd: ', selectedDate);
+
+    hideDatePicker();
+  };
+
   const CONTENT = {
     tableHead: [
       <View style={{alignItems: 'center'}}>
-        <Text style={{fontSize: 12, fontWeight: 'bold'}}>번호</Text>
+        <Text style={{fontSize: 10, fontWeight: 'bold'}}>번호</Text>
       </View>,
       <View style={{alignItems: 'center'}}>
-        <Text style={{fontSize: 12, fontWeight: 'bold'}}>제목</Text>
+        <Text style={{fontSize: 10, fontWeight: 'bold'}}>제목</Text>
       </View>,
       <View style={{alignItems: 'center'}}>
-        <Text style={{fontSize: 12, fontWeight: 'bold'}}>작성자</Text>
+        <Text style={{fontSize: 10, fontWeight: 'bold'}}>작성자</Text>
       </View>,
       <View style={{alignItems: 'center'}}>
-        <Text style={{fontSize: 12, fontWeight: 'bold'}}>등록일</Text>
+        <Text style={{fontSize: 10, fontWeight: 'bold'}}>등록일</Text>
       </View>,
       <View style={{alignItems: 'center'}}>
-        <Text style={{fontSize: 12, fontWeight: 'bold'}}>조회건수</Text>
+        <Text style={{fontSize: 10, fontWeight: 'bold'}}>조회건수</Text>
       </View>,
       <View style={{alignItems: 'center'}}>
-        <Text style={{fontSize: 12, fontWeight: 'bold'}}>메일발송그룹</Text>
+        <Text style={{fontSize: 10, fontWeight: 'bold'}}>메일발송그룹</Text>
       </View>,
       <View style={{alignItems: 'center', height: 25, marginTop: 10}}>
-        <Text style={{fontSize: 12, fontWeight: 'bold'}}>메일발송여부</Text>
+        <Text style={{fontSize: 10, fontWeight: 'bold'}}>메일발송여부</Text>
       </View>,
     ],
     tableData: [
@@ -50,19 +69,20 @@ const AppMain = ({}) => {
           }}>
           <Text style={{marginTop: 8}}>등록일</Text>
         </View>,
-
+        `${selectedDate}`,
+        <View>
+          <TouchableOpacity style={{alignItems: 'flex-end'}}>
+            <CalendarMonthIcon
+              name="calendar-today"
+              size={20}
+              onPress={showDatePicker}></CalendarMonthIcon>
+          </TouchableOpacity>
+        </View>,
         <TouchableOpacity style={{alignItems: 'flex-end'}}>
           <CalendarMonthIcon
             name="calendar-today"
             size={20}
-            onPress={() => setOpen(true)}></CalendarMonthIcon>
-        </TouchableOpacity>,
-
-        <TouchableOpacity style={{alignItems: 'flex-end'}}>
-          <CalendarMonthIcon
-            name="calendar-today"
-            size={20}
-            onPress={() => setOpen(true)}></CalendarMonthIcon>
+            onPress={showDatePicker}></CalendarMonthIcon>
         </TouchableOpacity>,
         <View
           style={{
@@ -75,6 +95,26 @@ const AppMain = ({}) => {
           <Text style={{marginTop: 8}}>제목</Text>
         </View>,
         <TextInput style={{width: 1500}}></TextInput>,
+      ],
+    ],
+    tableInfoData: [
+      [
+        '1',
+        '[일본]8월 SPOT 입찰안내',
+        '남인우',
+        '2022.08.09 10:43:41',
+        '0',
+        '(PD) Spot 해송-Japan',
+        'N',
+      ],
+      [
+        '2',
+        '[일본]8월 SPOT 입찰안내',
+        '남인우',
+        '2022.08.09 10:43:41',
+        '0',
+        '(PD) Spot 해송-Japan',
+        'N',
       ],
     ],
     row: {height: 220},
@@ -116,27 +156,30 @@ const AppMain = ({}) => {
           />
         </TableWrapper>
       </Table>
-      <DatePicker
-        modal
-        open={open}
-        date={date}
-        onConfirm={date => {
-          setOpen(false);
-          setDate(date);
-        }}
-        onCancel={() => {
-          setOpen(false);
-        }}
+      <DateTimePicker
+        isVisible={isDatePickerVisible}
+        mode="date"
+        onConfirm={handleConfirm}
+        onCancel={hideDatePicker}
       />
-      <Table
-        borderStyle={{borderWidth: 1}}
-        style={{marginTop: 50, marginLeft: 10, marginRight: 10}}>
-        <Row
-          style={{backgroundColor: 'lightgray'}}
-          widthArr={[35, 35, 45, 45, 52, 80, 80]}
-          data={CONTENT.tableHead}
-        />
-      </Table>
+
+      <ScrollView horizontal>
+        <Table
+          borderStyle={{borderWidth: 1}}
+          style={{marginTop: 50, marginLeft: 10, marginRight: 10}}>
+          <Row
+            style={{backgroundColor: 'lightgray'}}
+            widthArr={[25, 160, 45, 140, 25, 150]}
+            data={CONTENT.tableHead}
+          />
+          <TableWrapper>
+            <Rows
+              data={CONTENT.tableInfoData}
+              widthArr={[25, 160, 45, 140, 25, 150]}
+            />
+          </TableWrapper>
+        </Table>
+      </ScrollView>
     </View>
   );
 };
