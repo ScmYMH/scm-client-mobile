@@ -7,30 +7,44 @@ import {
   TouchableOpacity,
   TextInput,
   ScrollView,
+  TextInputBase,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import CalendarMonthIcon from 'react-native-vector-icons/MaterialIcons';
 import {Table, TableWrapper, Row, Rows} from 'react-native-table-component';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import DateTimePicker from 'react-native-modal-datetime-picker';
+import AppHeader from './AppHeader';
 const AppMain = ({}) => {
-  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-
-  const showDatePicker = () => {
-    setDatePickerVisibility(true);
+  const [isDatePickerVisible_1, setDatePickerVisibility_1] = useState(false);
+  const [isDatePickerVisible_2, setDatePickerVisibility_2] = useState(false);
+  const showDatePicker_1 = () => {
+    setDatePickerVisibility_1(true);
+  };
+  const showDatePicker_2 = () => {
+    setDatePickerVisibility_2(true);
   };
 
-  const hideDatePicker = () => {
-    setDatePickerVisibility(false);
+  const hideDatePicker_1 = () => {
+    setDatePickerVisibility_1(false);
   };
-  var selectedDate = new Date();
-  const handleConfirm = (date: Date) => {
-    console.warn('A date has been picked: ', date);
+  const hideDatePicker_2 = () => {
+    setDatePickerVisibility_2(false);
+  };
 
-    selectedDate = date;
-    console.warn('dd: ', selectedDate);
+  const [selectedDate_1, setSelectedDate_1] = useState(new Date());
+  const [selectedDate_2, setSelectedDate_2] = useState(new Date());
 
-    hideDatePicker();
+  const handleConfirm_1 = (date: Date) => {
+    setSelectedDate_1(date);
+
+    hideDatePicker_1();
+  };
+
+  const handleConfirm_2 = (date: Date) => {
+    setSelectedDate_2(date);
+
+    hideDatePicker_2();
   };
 
   const CONTENT = {
@@ -69,20 +83,21 @@ const AppMain = ({}) => {
           }}>
           <Text style={{marginTop: 8}}>등록일</Text>
         </View>,
-        `${selectedDate}`,
+        `${selectedDate_1}`,
         <View>
           <TouchableOpacity style={{alignItems: 'flex-end'}}>
             <CalendarMonthIcon
               name="calendar-today"
               size={20}
-              onPress={showDatePicker}></CalendarMonthIcon>
+              onPress={showDatePicker_1}></CalendarMonthIcon>
           </TouchableOpacity>
         </View>,
+        `${selectedDate_2}`,
         <TouchableOpacity style={{alignItems: 'flex-end'}}>
           <CalendarMonthIcon
             name="calendar-today"
             size={20}
-            onPress={showDatePicker}></CalendarMonthIcon>
+            onPress={showDatePicker_2}></CalendarMonthIcon>
         </TouchableOpacity>,
         <View
           style={{
@@ -124,63 +139,75 @@ const AppMain = ({}) => {
     Alert.alert('You tapped the button!');
   }
   return (
-    <View>
-      <Text style={{fontWeight: 'bold', padding: 10, color: '#003366'}}>
-        ● 공지문 작성
-      </Text>
-      <View style={{alignItems: 'flex-end', marginRight: 10}}>
-        <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
-          <TouchableOpacity style={styles.button_1} onPress={_onPressButton}>
-            <Text> 조회</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button_2} onPress={_onPressButton}>
-            <Text>신규등록</Text>
-          </TouchableOpacity>
+    <>
+      <AppHeader></AppHeader>
+      <View>
+        <Text style={{fontWeight: 'bold', padding: 10, color: '#003366'}}>
+          ● 공지문 작성
+        </Text>
+        <View style={{alignItems: 'flex-end', marginRight: 10}}>
+          <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
+            <TouchableOpacity style={styles.button_1} onPress={_onPressButton}>
+              <Text> 조회</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button_2}>
+              <Text>신규등록</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
-      <View
-        style={{
-          marginLeft: 20,
-          marginTop: 20,
-          flexDirection: 'row',
-          borderBottomColor: 'black',
-        }}></View>
-      <Table
-        borderStyle={{borderWidth: 1}}
-        style={{marginLeft: 10, marginRight: 10, height: 40}}>
-        <TableWrapper style={{alignContent: 'center'}}>
-          <Rows
-            widthArr={[60, 70, 70, 50, 122]}
-            data={CONTENT.tableData}
-            style={{alignContent: 'center'}}
-          />
-        </TableWrapper>
-      </Table>
-      <DateTimePicker
-        isVisible={isDatePickerVisible}
-        mode="date"
-        onConfirm={handleConfirm}
-        onCancel={hideDatePicker}
-      />
-
-      <ScrollView horizontal>
+        <View
+          style={{
+            marginLeft: 20,
+            marginTop: 20,
+            flexDirection: 'row',
+            borderBottomColor: 'black',
+          }}></View>
         <Table
           borderStyle={{borderWidth: 1}}
-          style={{marginTop: 50, marginLeft: 10, marginRight: 10}}>
-          <Row
-            style={{backgroundColor: 'lightgray'}}
-            widthArr={[25, 160, 45, 140, 25, 150]}
-            data={CONTENT.tableHead}
-          />
-          <TableWrapper>
+          style={{marginLeft: 10, marginRight: 10, height: 40}}>
+          <TableWrapper style={{alignContent: 'center'}}>
             <Rows
-              data={CONTENT.tableInfoData}
-              widthArr={[25, 160, 45, 140, 25, 150]}
+              widthArr={[50, 60, 20, 60, 20, 40, 120]}
+              data={CONTENT.tableData}
+              style={{alignContent: 'center'}}
             />
           </TableWrapper>
         </Table>
-      </ScrollView>
-    </View>
+
+        <DateTimePicker
+          isVisible={isDatePickerVisible_1}
+          mode="date"
+          onConfirm={handleConfirm_1}
+          onCancel={hideDatePicker_1}
+          date={selectedDate_1}
+        />
+        <DateTimePicker
+          isVisible={isDatePickerVisible_2}
+          mode="date"
+          onConfirm={handleConfirm_2}
+          onCancel={hideDatePicker_2}
+          date={selectedDate_2}
+        />
+
+        <ScrollView horizontal>
+          <Table
+            borderStyle={{borderWidth: 1}}
+            style={{marginTop: 50, marginLeft: 10, marginRight: 10}}>
+            <Row
+              style={{backgroundColor: 'lightgray'}}
+              widthArr={[25, 160, 45, 140, 25, 150]}
+              data={CONTENT.tableHead}
+            />
+            <TableWrapper>
+              <Rows
+                data={CONTENT.tableInfoData}
+                widthArr={[25, 160, 45, 140, 25, 150]}
+              />
+            </TableWrapper>
+          </Table>
+        </ScrollView>
+      </View>
+    </>
   );
 };
 

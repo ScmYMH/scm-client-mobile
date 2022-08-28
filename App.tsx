@@ -30,6 +30,7 @@ import AppHeader from './src/screens/AppHeader';
 import AppMain from './src/screens/AppMain';
 import Maind from './src/screens/AppMain';
 import Main from './src/screens/AppMain';
+import NewSignUp from './src/screens/NewSignUp';
 
 const Section: React.FC<
   PropsWithChildren<{
@@ -75,12 +76,13 @@ const App = () => {
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
-        <AppHeader></AppHeader>
+        {/* <AppHeader></AppHeader> */}
         <View
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
           <AppMain></AppMain>
+          {/* <NewSignUp></NewSignUp> */}
         </View>
       </ScrollView>
     </SafeAreaView>
