@@ -50,7 +50,7 @@ const AppMain = ({}) => {
     hideDatePicker_2();
   };
 
-  const [text, setText] = useState();
+  const [text, setText] = React.useState('중국');
 
   const CONTENT = {
     tableHead: [
@@ -113,8 +113,8 @@ const AppMain = ({}) => {
         </View>,
         <TextInput
           style={{width: 1500}}
-          defaultValue={'중국'}
-          value={'중국'}></TextInput>,
+          onChangeText={text => setText(text)}
+          value={text}></TextInput>,
       ],
     ],
     tableInfoData: [
@@ -135,22 +135,7 @@ const AppMain = ({}) => {
         'N',
       ],
     ],
-    // tableInfoData_: [
-    //   bidInfoData?.map((content, i) => {
-    //     return (
-    //       <View>
-    //         <Text>{i}</Text>
-    //         <Text>{content.subj}</Text>
-    //         <Text>{content.ins_person_nm}</Text>
-    //         <Text>
-    //           {content.ins_date} {content.ins_time}
-    //         </Text>
-    //         <Text>{content.lsp_grp_nm}</Text>
-    //         <Text>{content.dw_mail_send_f}</Text>
-    //       </View>
-    //     );
-    //   }),
-    // ],
+
     row: {height: 220},
   };
 
@@ -169,13 +154,20 @@ const AppMain = ({}) => {
   const dispatch = useDispatch();
 
   const onSubmitSearch = () => {
+    console.warn('text >>> ', text);
     const param = {
-      subj: '중국',
-      ins_start_date: selectedDate_1.getDate(), //selectedDate_1,
-      ins_end_date: '20220829',
+      subj: text,
+      ins_start_date:
+        selectedDate_1.getFullYear().toString() +
+        selectedDate_1.getMonth().toString() +
+        selectedDate_1.getDate().toString(),
+      ins_end_date:
+        selectedDate_2.getFullYear().toString() +
+        selectedDate_2.getMonth().toString() +
+        selectedDate_2.getDate().toString(),
     };
-    dispatch(getBidInfoAsync.request(search));
-    console.warn('bidInfoData >>> ', bidInfoData);
+    dispatch(getBidInfoAsync.request(param));
+    console.warn('param >>> ', param);
   };
 
   function _onPressButton() {
@@ -242,7 +234,6 @@ const AppMain = ({}) => {
             />
             <TableWrapper>
               <Rows
-                // data={CONTENT.tableInfoData}
                 data={
                   bidInfoData
                     ? bidInfoData.map((content, i) => {
