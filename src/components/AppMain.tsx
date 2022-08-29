@@ -45,7 +45,6 @@ const AppMain = ({}) => {
   };
 
   const handleConfirm_2 = (date: Date) => {
-    date.getDate;
     setSelectedDate_2(date);
 
     hideDatePicker_2();
@@ -136,6 +135,22 @@ const AppMain = ({}) => {
         'N',
       ],
     ],
+    // tableInfoData_: [
+    //   bidInfoData?.map((content, i) => {
+    //     return (
+    //       <View>
+    //         <Text>{i}</Text>
+    //         <Text>{content.subj}</Text>
+    //         <Text>{content.ins_person_nm}</Text>
+    //         <Text>
+    //           {content.ins_date} {content.ins_time}
+    //         </Text>
+    //         <Text>{content.lsp_grp_nm}</Text>
+    //         <Text>{content.dw_mail_send_f}</Text>
+    //       </View>
+    //     );
+    //   }),
+    // ],
     row: {height: 220},
   };
 
@@ -160,7 +175,6 @@ const AppMain = ({}) => {
       ins_end_date: '20220829',
     };
     dispatch(getBidInfoAsync.request(search));
-    console.warn('param >> ', search);
     console.warn('bidInfoData >>> ', bidInfoData);
   };
 
@@ -203,7 +217,6 @@ const AppMain = ({}) => {
             />
           </TableWrapper>
         </Table>
-
         <DateTimePicker
           isVisible={isDatePickerVisible_1}
           mode="date"
@@ -218,7 +231,6 @@ const AppMain = ({}) => {
           onCancel={hideDatePicker_2}
           date={selectedDate_2}
         />
-
         <ScrollView horizontal>
           <Table
             borderStyle={{borderWidth: 1}}
@@ -230,7 +242,21 @@ const AppMain = ({}) => {
             />
             <TableWrapper>
               <Rows
-                data={CONTENT.tableInfoData}
+                // data={CONTENT.tableInfoData}
+                data={
+                  bidInfoData
+                    ? bidInfoData.map((content, i) => {
+                        return [
+                          i + 1,
+                          content.subj,
+                          content.ins_person_nm,
+                          content.ins_date + ' ' + content.ins_time,
+                          content.lsp_grp_nm,
+                          content.dw_mail_send_f,
+                        ];
+                      })
+                    : []
+                }
                 widthArr={[25, 160, 45, 140, 150, 70]}
               />
             </TableWrapper>
