@@ -26,66 +26,35 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-import AppHeader from './src/screens/AppHeader';
-import AppMain from './src/screens/AppMain';
-import Maind from './src/screens/AppMain';
-import Main from './src/screens/AppMain';
-import NewSignUp from './src/screens/NewSignUp';
-
-const Section: React.FC<
-  PropsWithChildren<{
-    title: string;
-  }>
-> = ({children, title}) => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text>안녕!</Text>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
+import {Provider, useStore} from 'react-redux';
+import AppHeader from './src/components/AppHeader';
+import AppMain from './src/components/AppMain';
+import Maind from './src/components/AppMain';
+import Main from './src/components/AppMain';
+import NewSignUp from './src/components/NewSignUp';
+import store from './store';
 
 const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        {/* <AppHeader></AppHeader> */}
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
+    <Provider store={store}>
+      <SafeAreaView>
+        <View>
           <AppMain></AppMain>
-          {/* <NewSignUp></NewSignUp> */}
         </View>
-      </ScrollView>
-    </SafeAreaView>
+      </SafeAreaView>
+    </Provider>
+    // <SafeAreaView style={backgroundStyle}>
+    //   <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
+    //   <ScrollView
+    //     contentInsetAdjustmentBehavior="automatic"
+
+    //     {/* <AppHeader></AppHeader> */}
+
+    //       <AppMain></AppMain>
+    //       {/* <NewSignUp></NewSignUp> */}
+    //     </View>
+    //   </ScrollView>
+    // </SafeAreaView>
   );
 };
 

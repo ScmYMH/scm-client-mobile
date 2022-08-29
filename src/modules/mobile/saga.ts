@@ -7,7 +7,7 @@ function* getBidNotiSaga(action: ReturnType<typeof getBidInfoAsync.request>) {
       getBidNotiApi,
       action.payload,
     );
-
+    console.log(bidInfo);
     yield put(getBidInfoAsync.success(bidInfo));
   } catch (e: any) {
     yield put(getBidInfoAsync.failure(e));

@@ -15,6 +15,9 @@ import {Table, TableWrapper, Row, Rows} from 'react-native-table-component';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import AppHeader from './AppHeader';
+import {Provider, useDispatch, useSelector} from 'react-redux';
+import {getBidInfoAsync} from '../modules/mobile/actions';
+import {RootState} from '../../saga';
 const AppMain = ({}) => {
   const [isDatePickerVisible_1, setDatePickerVisibility_1] = useState(false);
   const [isDatePickerVisible_2, setDatePickerVisibility_2] = useState(false);
@@ -42,10 +45,13 @@ const AppMain = ({}) => {
   };
 
   const handleConfirm_2 = (date: Date) => {
+    date.getDate;
     setSelectedDate_2(date);
 
     hideDatePicker_2();
   };
+
+  const [text, setText] = useState();
 
   const CONTENT = {
     tableHead: [
@@ -60,9 +66,6 @@ const AppMain = ({}) => {
       </View>,
       <View style={{alignItems: 'center'}}>
         <Text style={{fontSize: 10, fontWeight: 'bold'}}>등록일</Text>
-      </View>,
-      <View style={{alignItems: 'center'}}>
-        <Text style={{fontSize: 10, fontWeight: 'bold'}}>조회건수</Text>
       </View>,
       <View style={{alignItems: 'center'}}>
         <Text style={{fontSize: 10, fontWeight: 'bold'}}>메일발송그룹</Text>
@@ -109,7 +112,10 @@ const AppMain = ({}) => {
           }}>
           <Text style={{marginTop: 8}}>제목</Text>
         </View>,
-        <TextInput style={{width: 1500}}></TextInput>,
+        <TextInput
+          style={{width: 1500}}
+          defaultValue={'중국'}
+          value={'중국'}></TextInput>,
       ],
     ],
     tableInfoData: [
@@ -118,7 +124,6 @@ const AppMain = ({}) => {
         '[일본]8월 SPOT 입찰안내',
         '남인우',
         '2022.08.09 10:43:41',
-        '0',
         '(PD) Spot 해송-Japan',
         'N',
       ],
@@ -127,12 +132,36 @@ const AppMain = ({}) => {
         '[일본]8월 SPOT 입찰안내',
         '남인우',
         '2022.08.09 10:43:41',
-        '0',
         '(PD) Spot 해송-Japan',
         'N',
       ],
     ],
     row: {height: 220},
+  };
+
+  const [search, setSearch] = useState({
+    ins_start_date: '', //selectedDate_1,
+    ins_end_date: '20220829', //selectedDate_2,
+    subj: '중국',
+  });
+
+  const {data: bidInfoData} = useSelector(
+    (state: RootState) => state.bidInfo.bidInfoList,
+  );
+  useEffect(() => {
+    console.warn('bidInfoData112 >>> ', bidInfoData);
+  }, [bidInfoData]);
+  const dispatch = useDispatch();
+
+  const onSubmitSearch = () => {
+    const param = {
+      subj: '중국',
+      ins_start_date: selectedDate_1.getDate(), //selectedDate_1,
+      ins_end_date: '20220829',
+    };
+    dispatch(getBidInfoAsync.request(search));
+    console.warn('param >> ', search);
+    console.warn('bidInfoData >>> ', bidInfoData);
   };
 
   function _onPressButton() {
@@ -147,9 +176,10 @@ const AppMain = ({}) => {
         </Text>
         <View style={{alignItems: 'flex-end', marginRight: 10}}>
           <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
-            <TouchableOpacity style={styles.button_1} onPress={_onPressButton}>
+            <TouchableOpacity style={styles.button_1} onPress={onSubmitSearch}>
               <Text> 조회</Text>
             </TouchableOpacity>
+
             <TouchableOpacity style={styles.button_2}>
               <Text>신규등록</Text>
             </TouchableOpacity>
@@ -195,13 +225,13 @@ const AppMain = ({}) => {
             style={{marginTop: 50, marginLeft: 10, marginRight: 10}}>
             <Row
               style={{backgroundColor: 'lightgray'}}
-              widthArr={[25, 160, 45, 140, 25, 150]}
+              widthArr={[25, 160, 45, 140, 150, 70]}
               data={CONTENT.tableHead}
             />
             <TableWrapper>
               <Rows
                 data={CONTENT.tableInfoData}
-                widthArr={[25, 160, 45, 140, 25, 150]}
+                widthArr={[25, 160, 45, 140, 150, 70]}
               />
             </TableWrapper>
           </Table>

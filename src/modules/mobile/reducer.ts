@@ -18,8 +18,8 @@ const bidInfo = createReducer<BidInfoState, BidInfoAction>(initialState, {
     ...state,
     bidInfoList: asyncState.load(),
   }),
-  [GET_BID_INFO_SUCCESS]: (stae, action) => ({
-    ...State,
+  [GET_BID_INFO_SUCCESS]: (state, action) => ({
+    ...state,
     bidInfoList: asyncState.success(action.payload),
   }),
   [GET_BID_INFO_ERROR]: (state, action) => ({
