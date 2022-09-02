@@ -9,52 +9,20 @@
  */
 
 import React, {type PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import {SafeAreaView, StyleSheet, View} from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
 import {Provider, useStore} from 'react-redux';
-import AppHeader from './src/components/AppHeader';
-import AppMain from './src/components/AppMain';
-import Maind from './src/components/AppMain';
-import Main from './src/components/AppMain';
-import NewSignUp from './src/components/NewSignUp';
+import HomeNavigation from './src/navigation/HomeNavigation';
 import store from './store';
+import {NavigationContainer} from '@react-navigation/native';
 
 const App = () => {
   return (
     <Provider store={store}>
-      <SafeAreaView>
-        <View>
-          <AppMain></AppMain>
-        </View>
-      </SafeAreaView>
+      <NavigationContainer>
+        <HomeNavigation></HomeNavigation>
+      </NavigationContainer>
     </Provider>
-    // <SafeAreaView style={backgroundStyle}>
-    //   <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-    //   <ScrollView
-    //     contentInsetAdjustmentBehavior="automatic"
-
-    //     {/* <AppHeader></AppHeader> */}
-
-    //       <AppMain></AppMain>
-    //       {/* <NewSignUp></NewSignUp> */}
-    //     </View>
-    //   </ScrollView>
-    // </SafeAreaView>
   );
 };
 
