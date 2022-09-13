@@ -159,13 +159,18 @@ const AppMain = ({navigation}: any) => {
       data: bidDetailInfoData,
     });
   }
+  function forNavagiategggggggg() {
+    console.log('bidDetailInfoData 확인입니다 >> ', bidDetailInfoData);
+
+    navigation.navigate('NewSignUp', {});
+  }
 
   const detailInfo = (param: any) => {
     dispatch(getBidDetailInfoAsync.request(param));
   };
 
   useEffect(() => {
-    forNavagiate();
+    if (bidDetailInfoData) forNavagiate();
   }, [bidDetailInfoData]);
 
   return (
@@ -181,7 +186,9 @@ const AppMain = ({navigation}: any) => {
               <Text> 조회</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.button_2} onPress={forNavagiate}>
+            <TouchableOpacity
+              style={styles.button_2}
+              onPress={forNavagiategggggggg}>
               <Text>신규등록</Text>
             </TouchableOpacity>
           </View>
@@ -247,6 +254,11 @@ const AppMain = ({navigation}: any) => {
                             content.dw_mail_send_f,
                           ]}
                           widthArr={[25, 160, 45, 140, 150, 70]}
+                          style={{
+                            flex: 1,
+                            borderWidth: 0.5,
+                            borderBottomEndRadius: 5,
+                          }}
                         />
                       </TouchableOpacity>,
                     ];

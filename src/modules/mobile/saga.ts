@@ -4,7 +4,9 @@ import {
   deleteBidNotiApi,
   getBidNotiApi,
   getDetailBidInfoApi,
+  MailInfo,
   postBidNotiApi,
+  sendEmailApi,
   updateBidNotiApi,
 } from '../../api/bidNotiAxios';
 import {
@@ -16,6 +18,8 @@ import {
   GET_BID_INFO,
   postBidInfoAsync,
   POST_BID_INFO,
+  POST_MAIL,
+  sendEmailAsync,
   updateBidInfoAsync,
   UPDATE_BID_INFO,
 } from './actions';
@@ -84,10 +88,20 @@ function* updBidInfoSaga(
   }
 }
 
+function* postMailSaga(action: ReturnType<typeof sendEmailAsync.request>) {
+  try {
+    const sendMailInfo: MailInfo = yield call(sendEmailApi, action.payload);
+    yield put(sendEmailAsync.success(sendMailInfo));
+  } catch (e: any) {
+    yield put(sendEmailAsync.failure(e));
+  }
+}
+
 export function* bidNotiSaga() {
   yield takeLatest(GET_BID_INFO, getBidNotiSaga);
   yield takeLatest(POST_BID_INFO, postBidNotiSaga);
   yield takeLatest(DELETE_BID_INFO, delBidNotiSaga);
   yield takeLatest(GET_BID_DETAIL_INFO, getDetailBidInfoSaga);
   yield takeLatest(UPDATE_BID_INFO, updBidInfoSaga);
+  yield takeLatest(POST_MAIL, postMailSaga);
 }

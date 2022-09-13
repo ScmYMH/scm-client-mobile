@@ -17,7 +17,9 @@ const Tab = createBottomTabNavigator();
 
 const HomeNavigation = () => {
   return (
-    <Stack.Navigator initialRouteName="AppMain">
+    <Stack.Navigator
+      initialRouteName="AppMain"
+      screenOptions={{headerShown: false}}>
       <Stack.Screen name="AppMain" component={AppMain}></Stack.Screen>
       <Stack.Screen name="NewSignUp" component={NewSignUp}></Stack.Screen>
     </Stack.Navigator>

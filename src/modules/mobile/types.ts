@@ -1,5 +1,5 @@
 import {ActionType} from 'typesafe-actions';
-import {BidNotiInfo, BidNotiPostInfo} from '../../api/bidNotiAxios';
+import {BidNotiInfo, BidNotiPostInfo, MailInfo} from '../../api/bidNotiAxios';
 import {AsyncState} from '../../lib/reducerUtils';
 import * as actions from './actions';
 
@@ -11,4 +11,5 @@ export type BidInfoState = {
   bidInfoDel: AsyncState<Number, Error>;
   bidDetailInfoList: AsyncState<Array<BidNotiInfo>, Error>;
   updBidInfoList: AsyncState<Array<BidNotiInfo>, Error>;
+  postMail: AsyncState<MailInfo, Error>;
 };

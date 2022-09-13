@@ -1,6 +1,6 @@
 import AppHeader from './AppHeader';
 import React, {useEffect} from 'react';
-import {View, StyleSheet, Text, TextInput} from 'react-native';
+import {View, StyleSheet, Text, TextInput, Alert} from 'react-native';
 import {TouchableOpacity} from 'react-native';
 import {Table, TableWrapper, Rows} from 'react-native-table-component';
 import SelectDropdown from 'react-native-select-dropdown';
@@ -8,6 +8,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {
   deleteBidInfoAsync,
   postBidInfoAsync,
+  sendEmailAsync,
   updateBidInfoAsync,
 } from '../modules/mobile/actions';
 import {RootState} from '../../saga';
@@ -140,8 +141,16 @@ const NewSignUp = ({route}: any) => {
     if (forUpdate == 0) {
       console.log('보낼때 param값 확인 >> ', param);
       dispatch(postBidInfoAsync.request(param));
+      Alert.alert('저장', '해당 공지문이 저장되었습니다', [{text: '확인'}], {
+        cancelable: true,
+        onDismiss: () => {},
+      });
     } else if (forUpdate == 1) {
       dispatch(updateBidInfoAsync.request(updParam));
+      Alert.alert('저장', '해당 공지문이 저장되었습니다', [{text: '확인'}], {
+        cancelable: true,
+        onDismiss: () => {},
+      });
     }
   };
 
@@ -149,8 +158,44 @@ const NewSignUp = ({route}: any) => {
     console.log('bidSeq 값 확인 >>> ', detailData[0].bltn_content_no);
     if (forUpdate == 1) {
       dispatch(deleteBidInfoAsync.request(detailData[0].bltn_content_no));
+      Alert.alert('삭제', '해당 공지문이 삭제되었습니다', [{text: '확인'}], {
+        cancelable: true,
+        onDismiss: () => {},
+      });
     } else {
       dispatch(deleteBidInfoAsync.request(bidSeq));
+      Alert.alert('삭제', '해당 공지문이 삭제되었습니다', [{text: '확인'}], {
+        cancelable: true,
+        onDismiss: () => {},
+      });
+    }
+  };
+
+  const onSendMail = () => {
+    const mailParam_1 = {
+      lsp_grp_cd: detailData[0].lsp_grp_cd,
+      subj: subj,
+      bltn_content: bltnContent,
+    };
+    const mailParam_2 = {
+      lsp_grp_cd: bidSeq?.lsp_grp_cd,
+      subj: subj,
+      bltn_content: bltnContent,
+    };
+    console.log('mailParam_1 >>> ', mailParam_1);
+
+    if (forUpdate == 1) {
+      dispatch(sendEmailAsync.request(mailParam_1));
+      Alert.alert('메일발송', '메일 발송이 완료되었습니다', [{text: '확인'}], {
+        cancelable: true,
+        onDismiss: () => {},
+      });
+    } else {
+      dispatch(sendEmailAsync.request(mailParam_2));
+      Alert.alert('메일발송', '메일 발송이 완료되었습니다', [{text: '확인'}], {
+        cancelable: true,
+        onDismiss: () => {},
+      });
     }
   };
 
@@ -168,7 +213,7 @@ const NewSignUp = ({route}: any) => {
               onPress={onSubmitPostNotiInfo}>
               <Text>저장</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button_2}>
+            <TouchableOpacity style={styles.button_2} onPress={onSendMail}>
               <Text>메일발송</Text>
             </TouchableOpacity>
             <TouchableOpacity
