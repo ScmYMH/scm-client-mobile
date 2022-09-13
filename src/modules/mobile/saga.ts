@@ -5,6 +5,7 @@ import {
   getBidNotiApi,
   getDetailBidInfoApi,
   postBidNotiApi,
+  updateBidNotiApi,
 } from '../../api/bidNotiAxios';
 import {
   deleteBidInfoAsync,
@@ -15,6 +16,8 @@ import {
   GET_BID_INFO,
   postBidInfoAsync,
   POST_BID_INFO,
+  updateBidInfoAsync,
+  UPDATE_BID_INFO,
 } from './actions';
 import {call, put, takeLatest} from 'redux-saga/effects';
 
@@ -67,9 +70,24 @@ function* getDetailBidInfoSaga(
   }
 }
 
+function* updBidInfoSaga(
+  action: ReturnType<typeof updateBidInfoAsync.request>,
+) {
+  try {
+    const updBidInfo: Array<BidNotiInfo> = yield call(
+      updateBidNotiApi,
+      action.payload,
+    );
+    yield put(updateBidInfoAsync.success(updBidInfo));
+  } catch (e: any) {
+    yield put(updateBidInfoAsync.failure(e));
+  }
+}
+
 export function* bidNotiSaga() {
   yield takeLatest(GET_BID_INFO, getBidNotiSaga);
   yield takeLatest(POST_BID_INFO, postBidNotiSaga);
   yield takeLatest(DELETE_BID_INFO, delBidNotiSaga);
   yield takeLatest(GET_BID_DETAIL_INFO, getDetailBidInfoSaga);
+  yield takeLatest(UPDATE_BID_INFO, updBidInfoSaga);
 }

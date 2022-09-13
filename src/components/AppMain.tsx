@@ -17,7 +17,6 @@ import {
   getBidInfoAsync,
 } from '../modules/mobile/actions';
 import {RootState} from '../../saga';
-import {useNavigation} from '@react-navigation/native';
 import {useEffect} from 'react';
 
 const AppMain = ({navigation}: any) => {
@@ -137,11 +136,9 @@ const AppMain = ({navigation}: any) => {
     (state: RootState) => state.bidInfo.bidDetailInfoList,
   );
 
-  console.log('받아온 값 확인 >>> ', bidDetailInfoData);
-
   const dispatch = useDispatch();
 
-  const onSubmitSearch = ({navigation}: any) => {
+  const onSubmitSearch = () => {
     const param = {
       subj: text,
       ins_start_date:

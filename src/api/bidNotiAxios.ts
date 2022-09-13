@@ -33,6 +33,15 @@ export async function getDetailBidInfoApi(bltn_content_no: any) {
   return response.data;
 }
 
+export async function updateBidNotiApi(params: any) {
+  const response = await axios.put<BidNotiInfo>(
+    `http://192.168.0.67:9095/bid/noti`,
+    params,
+  );
+
+  return response.data;
+}
+
 export interface BidNotiInfo {
   lsp_grp_nm: string; //메일발송그룹 이름
   lsp_grp_cd: string; //메일발송그룹 코드

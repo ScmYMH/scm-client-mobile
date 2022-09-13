@@ -1,25 +1,45 @@
 import AppHeader from './AppHeader';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View, StyleSheet, Text, TextInput} from 'react-native';
 import {TouchableOpacity} from 'react-native';
 import {Table, TableWrapper, Rows} from 'react-native-table-component';
 import SelectDropdown from 'react-native-select-dropdown';
 import {useDispatch, useSelector} from 'react-redux';
-import {deleteBidInfoAsync, postBidInfoAsync} from '../modules/mobile/actions';
+import {
+  deleteBidInfoAsync,
+  postBidInfoAsync,
+  updateBidInfoAsync,
+} from '../modules/mobile/actions';
 import {RootState} from '../../saga';
 import bidInfo from './../modules/mobile/reducer';
+
 const NewSignUp = ({route}: any) => {
   const dispatch = useDispatch();
 
   const [subj, setSubj] = React.useState('');
   const [bltnContent, setBltnContent] = React.useState('');
   const [lspGrpNm, setLspGrpNm] = React.useState('');
+  const [bltnContentNo, setBltnContentNo] = React.useState('');
+  const [forUpdate, setForUpdate] = React.useState(0);
   const bidSeq = useSelector(
     (state: RootState) => state.bidInfo.bidInfoPostList.data,
   );
+  console.log('bidSeq', bidSeq);
   const lspName = ['(PD) Spot 해송-Japan'];
   const detailData = route.params.data;
-  console.log('화면 이동 후 bidINfo >>> ', detailData);
+  console.log('detailData >> ', detailData);
+  useEffect(() => {
+    if (detailData == null) {
+      setSubj('');
+      setBltnContent('');
+    } else if (detailData != null) {
+      setSubj(detailData[0].subj);
+      setBltnContent(detailData[0].bltn_content);
+      setBltnContentNo(detailData[0].bltn_content_no);
+      setForUpdate(1);
+    }
+  }, [detailData]);
+
   const CONTENT = {
     tableData: [
       [
@@ -72,6 +92,7 @@ const NewSignUp = ({route}: any) => {
 
         <TextInput
           style={{width: 1500, height: 40}}
+          defaultValue={subj}
           onChangeText={subj => setSubj(subj)}></TextInput>,
       ],
       [
@@ -85,9 +106,9 @@ const NewSignUp = ({route}: any) => {
           }}>
           <Text style={{marginTop: 8, height: 250}}>내용</Text>
         </View>,
-
         <TextInput
           style={{width: 1500, height: 250}}
+          defaultValue={bltnContent}
           onChangeText={bltnContent =>
             setBltnContent(bltnContent)
           }></TextInput>,
@@ -96,18 +117,41 @@ const NewSignUp = ({route}: any) => {
   };
 
   const onSubmitPostNotiInfo = () => {
+    // let detailSubj = detailData[0].subj;
+    // if (detailSubj != null) {
+    //   setSubj(detailSubj);
+    // }
+
+    console.log('forUpdate >> ', forUpdate);
+
     const param = {
       subj: subj,
-      bltn_content: bidInfo,
+      bltn_content: bltnContent,
       lsp_grp_nm: lspGrpNm,
     };
-    console.log('보낼때 param값 확인 >> ', param);
-    dispatch(postBidInfoAsync.request(param));
+
+    const updParam = {
+      subj: subj,
+      bltn_content: bltnContent,
+      lsp_grp_nm: lspGrpNm,
+      bltn_content_no: bltnContentNo,
+    };
+
+    if (forUpdate == 0) {
+      console.log('보낼때 param값 확인 >> ', param);
+      dispatch(postBidInfoAsync.request(param));
+    } else if (forUpdate == 1) {
+      dispatch(updateBidInfoAsync.request(updParam));
+    }
   };
 
   const onSubmintDeleteNotiInfo = () => {
-    console.log('bidSeq 값 확인 >>> ', bidSeq);
-    dispatch(deleteBidInfoAsync.request(bidSeq));
+    console.log('bidSeq 값 확인 >>> ', detailData[0].bltn_content_no);
+    if (forUpdate == 1) {
+      dispatch(deleteBidInfoAsync.request(detailData[0].bltn_content_no));
+    } else {
+      dispatch(deleteBidInfoAsync.request(bidSeq));
+    }
   };
 
   return (

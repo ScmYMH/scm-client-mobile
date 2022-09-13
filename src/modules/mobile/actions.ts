@@ -18,6 +18,10 @@ export const GET_BID_DETAIL_INFO = 'mibile/GET_BID_DETAIL_INFO';
 export const GET_BID_DETAIL_INFO_SUCCESS = 'mobile/GET_BID_DETAIL_INFO_SUCCESS';
 export const GET_BID_DETAIL_INFO_ERROR = 'mobile/GET_BID_DETAIL_INFO_ERROR';
 
+export const UPDATE_BID_INFO = 'mobile/UPDATE_BID_INFO';
+export const UPDATE_BID_INFO_SUCCESS = 'mobile/UPDATE_BID_INFO_SUCCESS';
+export const UPDATE_BID_INFO_ERROR = 'mobile/UPDATE_BID_INFO_ERROR';
+
 export const getBidInfoAsync = createAsyncAction(
   GET_BID_INFO,
   GET_BID_INFO_SUCCESS,
@@ -40,4 +44,10 @@ export const getBidDetailInfoAsync = createAsyncAction(
   GET_BID_DETAIL_INFO,
   GET_BID_DETAIL_INFO_SUCCESS,
   GET_BID_DETAIL_INFO_ERROR,
+)<any, Array<BidNotiInfo>, AxiosError>();
+
+export const updateBidInfoAsync = createAsyncAction(
+  UPDATE_BID_INFO,
+  UPDATE_BID_INFO_SUCCESS,
+  UPDATE_BID_INFO_ERROR,
 )<any, Array<BidNotiInfo>, AxiosError>();

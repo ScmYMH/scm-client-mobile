@@ -10,4 +10,5 @@ export type BidInfoState = {
   bidInfoPostList: AsyncState<BidNotiPostInfo, Error>;
   bidInfoDel: AsyncState<Number, Error>;
   bidDetailInfoList: AsyncState<Array<BidNotiInfo>, Error>;
+  updBidInfoList: AsyncState<Array<BidNotiInfo>, Error>;
 };

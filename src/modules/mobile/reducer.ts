@@ -15,6 +15,9 @@ import {
   GET_BID_DETAIL_INFO,
   GET_BID_DETAIL_INFO_SUCCESS,
   GET_BID_DETAIL_INFO_ERROR,
+  UPDATE_BID_INFO,
+  UPDATE_BID_INFO_SUCCESS,
+  UPDATE_BID_INFO_ERROR,
 } from './actions';
 import {BidInfoAction, BidInfoState} from './types';
 
@@ -23,6 +26,7 @@ const initialState: BidInfoState = {
   bidInfoPostList: asyncState.initial(),
   bidInfoDel: asyncState.initial(),
   bidDetailInfoList: asyncState.initial(),
+  updBidInfoList: asyncState.initial(),
 };
 
 const bidInfo = createReducer<BidInfoState, BidInfoAction>(initialState, {
@@ -73,6 +77,18 @@ const bidInfo = createReducer<BidInfoState, BidInfoAction>(initialState, {
   [GET_BID_DETAIL_INFO_ERROR]: (state, action) => ({
     ...state,
     bidDetailInfoList: asyncState.error(action.payload),
+  }),
+  [UPDATE_BID_INFO]: state => ({
+    ...state,
+    updBidInfoList: asyncState.load(),
+  }),
+  [UPDATE_BID_INFO_SUCCESS]: (state, action) => ({
+    ...state,
+    updBidInfoList: asyncState.success(action.payload),
+  }),
+  [UPDATE_BID_INFO_ERROR]: (state, action) => ({
+    ...state,
+    updBidInfoList: asyncState.error(action.payload),
   }),
 });
 
