@@ -108,6 +108,8 @@ const NewSignUp = ({route}: any) => {
           <Text style={{marginTop: 8, height: 250}}>내용</Text>
         </View>,
         <TextInput
+          multiline
+          numberOfLines={5}
           style={{width: 1500, height: 250}}
           defaultValue={bltnContent}
           onChangeText={bltnContent =>
@@ -173,25 +175,26 @@ const NewSignUp = ({route}: any) => {
 
   const onSendMail = () => {
     const mailParam_1 = {
-      lsp_grp_cd: detailData[0].lsp_grp_cd,
+      lsp_grp_cd: detailData.lsp_grp_cd,
       subj: subj,
       bltn_content: bltnContent,
+      bltn_content_no: bltnContentNo,
     };
     const mailParam_2 = {
       lsp_grp_cd: bidSeq?.lsp_grp_cd,
       subj: subj,
       bltn_content: bltnContent,
+      bltn_content_no: bltnContentNo,
     };
-    console.log('mailParam_1 >>> ', mailParam_1);
-
     if (forUpdate == 1) {
       dispatch(sendEmailAsync.request(mailParam_1));
       Alert.alert('메일발송', '메일 발송이 완료되었습니다', [{text: '확인'}], {
         cancelable: true,
         onDismiss: () => {},
       });
-    } else {
+    } else if (forUpdate == 0) {
       dispatch(sendEmailAsync.request(mailParam_2));
+      console.log('mailP >> ', mailParam_2);
       Alert.alert('메일발송', '메일 발송이 완료되었습니다', [{text: '확인'}], {
         cancelable: true,
         onDismiss: () => {},

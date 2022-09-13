@@ -51,7 +51,7 @@ const AppMain = ({navigation}: any) => {
     hideDatePicker_2();
   };
 
-  const [text, setText] = React.useState('중국');
+  const [text, setText] = React.useState('');
 
   const CONTENT = {
     tableHead: [
@@ -86,22 +86,41 @@ const AppMain = ({navigation}: any) => {
           }}>
           <Text style={{marginTop: 8}}>등록일</Text>
         </View>,
-        `${selectedDate_1}`,
-        <View>
-          <TouchableOpacity style={{alignItems: 'flex-end'}}>
+
+        <View style={{flexDirection: 'row', alignSelf: 'center'}}>
+          <Text>
+            {selectedDate_1.getFullYear().toString() +
+              '/' +
+              selectedDate_1.getMonth().toString() +
+              '/' +
+              selectedDate_1.getDate().toString()}
+          </Text>
+          <TouchableOpacity>
             <CalendarMonthIcon
               name="calendar-today"
               size={20}
               onPress={showDatePicker_1}></CalendarMonthIcon>
           </TouchableOpacity>
         </View>,
-        `${selectedDate_2}`,
-        <TouchableOpacity style={{alignItems: 'flex-end'}}>
-          <CalendarMonthIcon
-            name="calendar-today"
-            size={20}
-            onPress={showDatePicker_2}></CalendarMonthIcon>
-        </TouchableOpacity>,
+        <View
+          style={{
+            flexDirection: 'row',
+            alignSelf: 'center',
+          }}>
+          <Text>
+            {selectedDate_2.getFullYear().toString() +
+              '/' +
+              selectedDate_2.getMonth().toString() +
+              '/' +
+              selectedDate_2.getDate().toString()}
+          </Text>
+          <TouchableOpacity style={{alignItems: 'flex-end'}}>
+            <CalendarMonthIcon
+              name="calendar-today"
+              size={20}
+              onPress={showDatePicker_2}></CalendarMonthIcon>
+          </TouchableOpacity>
+        </View>,
         <View
           style={{
             backgroundColor: '#ced6e0',
@@ -121,12 +140,6 @@ const AppMain = ({navigation}: any) => {
 
     row: {height: 220},
   };
-
-  const [search, setSearch] = useState({
-    ins_start_date: '', //selectedDate_1,
-    ins_end_date: '20220829', //selectedDate_2,
-    subj: '중국',
-  });
 
   const {data: bidInfoData} = useSelector(
     (state: RootState) => state.bidInfo.bidInfoList,
@@ -205,7 +218,7 @@ const AppMain = ({navigation}: any) => {
           style={{marginLeft: 10, marginRight: 10, height: 40}}>
           <TableWrapper style={{alignContent: 'center'}}>
             <Rows
-              widthArr={[50, 60, 20, 60, 20, 40, 120]}
+              widthArr={[50, 90, 90, 40, 102]}
               data={CONTENT.tableData}
               style={{alignContent: 'center'}}
             />
@@ -254,10 +267,11 @@ const AppMain = ({navigation}: any) => {
                             content.dw_mail_send_f,
                           ]}
                           widthArr={[25, 160, 45, 140, 150, 70]}
+                          //widthArr={[25, 170, 35, 180, 130, 50]}
                           style={{
                             flex: 1,
                             borderWidth: 0.5,
-                            borderBottomEndRadius: 5,
+                            height: 50,
                           }}
                         />
                       </TouchableOpacity>,
