@@ -7,12 +7,14 @@ import SelectDropdown from 'react-native-select-dropdown';
 import {useDispatch, useSelector} from 'react-redux';
 import {
   deleteBidInfoAsync,
+  getLspGrpNmAsync,
   postBidInfoAsync,
   sendEmailAsync,
   updateBidInfoAsync,
 } from '../modules/mobile/actions';
 import {RootState} from '../../saga';
 import bidInfo from './../modules/mobile/reducer';
+import {LspGrpNm} from './../api/bidNotiAxios';
 
 const NewSignUp = ({route}: any) => {
   const dispatch = useDispatch();
@@ -25,9 +27,16 @@ const NewSignUp = ({route}: any) => {
   const bidSeq = useSelector(
     (state: RootState) => state.bidInfo.bidInfoPostList.data,
   );
+  //const lspgrpnm = useSelector((state: RootState) => state.bidInfo.lspgrpnm);
 
-  const lspName = ['(PD) Spot 해송-Japan'];
+  // const getLspGrpNm = () => {
+  //   dispatch(getLspGrpNmAsync.request(''));
+  // };
+
+  //console.log('aaaaaaaaaaaaaa >> ', lspgrpnm.data?.lsp_grp_nm);
+  const lspName = ['(PD) Spot 해송-Japan', '중국해송']; //lspGrpNm
   const detailData = route.params.data;
+  console.log('detailData => ', detailData);
   useEffect(() => {
     if (detailData == null) {
       setSubj('');
@@ -36,6 +45,7 @@ const NewSignUp = ({route}: any) => {
       setSubj(detailData[0].subj);
       setBltnContent(detailData[0].bltn_content);
       setBltnContentNo(detailData[0].bltn_content_no);
+      setLspGrpNm(detailData[0].lsp_grp_nm);
       setForUpdate(1);
     }
   }, [detailData]);
@@ -75,7 +85,7 @@ const NewSignUp = ({route}: any) => {
             rowTextForSelection={(item, index) => {
               return item;
             }}
-            defaultButtonText={'LSP POOL명 선택'}></SelectDropdown>
+            defaultButtonText={lspGrpNm}></SelectDropdown>
         </View>,
       ],
       [

@@ -21,6 +21,9 @@ import {
   POST_MAIL,
   POST_MAIL_SUCCESS,
   POST_MAIL_ERROR,
+  GET_LSPNM,
+  GET_LSPNM_SUCCESS,
+  GET_LSPNM_ERROR,
 } from './actions';
 import {BidInfoAction, BidInfoState} from './types';
 
@@ -31,6 +34,7 @@ const initialState: BidInfoState = {
   bidDetailInfoList: asyncState.initial(),
   updBidInfoList: asyncState.initial(),
   postMail: asyncState.initial(),
+  lspgrpnm: asyncState.initial(),
 };
 
 const bidInfo = createReducer<BidInfoState, BidInfoAction>(initialState, {
@@ -105,6 +109,18 @@ const bidInfo = createReducer<BidInfoState, BidInfoAction>(initialState, {
   [POST_MAIL_ERROR]: (state, action) => ({
     ...state,
     postMail: asyncState.error(action.payload),
+  }),
+  [GET_LSPNM]: state => ({
+    ...state,
+    lspgrpnm: asyncState.load(),
+  }),
+  [GET_LSPNM_SUCCESS]: (state, action) => ({
+    ...state,
+    lspgrpnm: asyncState.success(action.payload),
+  }),
+  [GET_LSPNM_ERROR]: (state, action) => ({
+    ...state,
+    lspgrpnm: asyncState.error(action.payload),
   }),
 });
 

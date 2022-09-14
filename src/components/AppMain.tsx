@@ -16,6 +16,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {
   getBidDetailInfoAsync,
   getBidInfoAsync,
+  getLspGrpNmAsync,
 } from '../modules/mobile/actions';
 import {RootState} from '../../saga';
 import {useEffect} from 'react';

@@ -4,6 +4,8 @@ import {
   deleteBidNotiApi,
   getBidNotiApi,
   getDetailBidInfoApi,
+  LspGrpNm,
+  lspGrpNmApi,
   MailInfo,
   postBidNotiApi,
   sendEmailApi,
@@ -14,8 +16,10 @@ import {
   DELETE_BID_INFO,
   getBidDetailInfoAsync,
   getBidInfoAsync,
+  getLspGrpNmAsync,
   GET_BID_DETAIL_INFO,
   GET_BID_INFO,
+  GET_LSPNM,
   postBidInfoAsync,
   POST_BID_INFO,
   POST_MAIL,
@@ -97,6 +101,15 @@ function* postMailSaga(action: ReturnType<typeof sendEmailAsync.request>) {
   }
 }
 
+function* getLspGrpNmSaga(action: ReturnType<typeof sendEmailAsync.request>) {
+  try {
+    const getLspGrpNm: LspGrpNm = yield call(lspGrpNmApi, action.payload);
+    yield put(getLspGrpNmAsync.success(getLspGrpNm));
+  } catch (e: any) {
+    yield put(getLspGrpNmAsync.failure(e));
+  }
+}
+
 export function* bidNotiSaga() {
   yield takeLatest(GET_BID_INFO, getBidNotiSaga);
   yield takeLatest(POST_BID_INFO, postBidNotiSaga);
@@ -104,4 +117,5 @@ export function* bidNotiSaga() {
   yield takeLatest(GET_BID_DETAIL_INFO, getDetailBidInfoSaga);
   yield takeLatest(UPDATE_BID_INFO, updBidInfoSaga);
   yield takeLatest(POST_MAIL, postMailSaga);
+  yield takeLatest(GET_LSPNM, getLspGrpNmSaga);
 }
