@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   TextInput,
   ScrollView,
+  SafeAreaView,
 } from 'react-native';
 import React, {useState} from 'react';
 import CalendarMonthIcon from 'react-native-vector-icons/MaterialIcons';
@@ -189,7 +190,7 @@ const AppMain = ({navigation}: any) => {
   return (
     <>
       <AppHeader></AppHeader>
-      <View>
+      <ScrollView>
         <Text style={{fontWeight: 'bold', padding: 10, color: '#003366'}}>
           ● 공지문 작성
         </Text>
@@ -213,12 +214,13 @@ const AppMain = ({navigation}: any) => {
             flexDirection: 'row',
             borderBottomColor: 'black',
           }}></View>
+
         <Table
           borderStyle={{borderWidth: 1}}
           style={{marginLeft: 10, marginRight: 10, height: 40}}>
           <TableWrapper style={{alignContent: 'center'}}>
             <Rows
-              widthArr={[50, 90, 90, 40, 102]}
+              widthArr={[42, 100, 100, 30, 100]}
               data={CONTENT.tableData}
               style={{alignContent: 'center'}}
             />
@@ -238,12 +240,12 @@ const AppMain = ({navigation}: any) => {
           onCancel={hideDatePicker_2}
           date={selectedDate_2}
         />
-        <ScrollView>
+        <ScrollView style={{marginVertical: 20}}>
           <ScrollView horizontal>
             <Table
               borderStyle={{borderWidth: 1}}
               style={{
-                marginTop: 50,
+                marginTop: 30,
                 marginLeft: 10,
                 marginRight: 10,
               }}>
@@ -267,7 +269,6 @@ const AppMain = ({navigation}: any) => {
                             content.dw_mail_send_f,
                           ]}
                           widthArr={[25, 160, 45, 140, 150, 70]}
-                          //widthArr={[25, 170, 35, 180, 130, 50]}
                           style={{
                             flex: 1,
                             borderWidth: 0.5,
@@ -278,29 +279,10 @@ const AppMain = ({navigation}: any) => {
                     ];
                   })
                 : []}
-              {/* <TouchableOpacity>
-                <Rows
-                  data={
-                    bidInfoData
-                      ? bidInfoData.map((content, i) => {
-                          return [
-                            i + 1,
-                            content.subj,
-                            content.ins_person_nm,
-                            content.ins_date + ' ' + content.ins_time,
-                            content.lsp_grp_nm,
-                            content.dw_mail_send_f,
-                          ];
-                        })
-                      : []
-                  }
-                  widthArr={[25, 160, 45, 140, 150, 70]}
-                />
-              </TouchableOpacity> */}
             </Table>
           </ScrollView>
         </ScrollView>
-      </View>
+      </ScrollView>
     </>
   );
 };

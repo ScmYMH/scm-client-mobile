@@ -157,7 +157,6 @@ const NewSignUp = ({route}: any) => {
   };
 
   const onSubmintDeleteNotiInfo = () => {
-    console.log('bidSeq 값 확인 >>> ', detailData[0].bltn_content_no);
     if (forUpdate == 1) {
       dispatch(deleteBidInfoAsync.request(detailData[0].bltn_content_no));
       Alert.alert('삭제', '해당 공지문이 삭제되었습니다', [{text: '확인'}], {
@@ -165,7 +164,7 @@ const NewSignUp = ({route}: any) => {
         onDismiss: () => {},
       });
     } else {
-      dispatch(deleteBidInfoAsync.request(bidSeq));
+      dispatch(deleteBidInfoAsync.request(bidSeq?.bltn_content_no));
       Alert.alert('삭제', '해당 공지문이 삭제되었습니다', [{text: '확인'}], {
         cancelable: true,
         onDismiss: () => {},
@@ -175,16 +174,16 @@ const NewSignUp = ({route}: any) => {
 
   const onSendMail = () => {
     const mailParam_1 = {
-      lsp_grp_cd: detailData.lsp_grp_cd,
+      lsp_grp_nm: lspGrpNm,
       subj: subj,
       bltn_content: bltnContent,
       bltn_content_no: bltnContentNo,
     };
     const mailParam_2 = {
-      lsp_grp_cd: bidSeq?.lsp_grp_cd,
+      lsp_grp_nm: lspGrpNm,
       subj: subj,
       bltn_content: bltnContent,
-      bltn_content_no: bltnContentNo,
+      bltn_content_no: bidSeq?.bltn_content_no,
     };
     if (forUpdate == 1) {
       dispatch(sendEmailAsync.request(mailParam_1));
