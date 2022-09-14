@@ -149,33 +149,55 @@ const AppMain = ({navigation}: any) => {
   const {data: bidDetailInfoData} = useSelector(
     (state: RootState) => state.bidInfo.bidDetailInfoList,
   );
-
   const dispatch = useDispatch();
 
   const onSubmitSearch = () => {
+    let start_m;
+    let start_d;
+    let end_m;
+    let end_d;
+
+    if (selectedDate_1.getMonth().toString().length == 1) {
+      start_m = '0' + selectedDate_1.getMonth().toString();
+    } else {
+      start_m = selectedDate_1.getMonth().toString();
+    }
+
+    if (selectedDate_1.getDate().toString().length == 1) {
+      start_d = '0' + selectedDate_1.getDate().toString();
+    } else {
+      start_d = selectedDate_1.getDate().toString();
+    }
+
+    if (selectedDate_2.getMonth().toString().length == 1) {
+      end_m = '0' + selectedDate_2.getMonth().toString();
+    } else {
+      end_m = selectedDate_2.getMonth().toString();
+    }
+
+    if (selectedDate_2.getDate().toString().length == 1) {
+      end_d = '0' + selectedDate_2.getDate().toString();
+    } else {
+      end_d = selectedDate_2.getDate().toString();
+    }
+
     const param = {
       subj: text,
       ins_start_date:
-        selectedDate_1.getFullYear().toString() +
-        selectedDate_1.getMonth().toString() +
-        selectedDate_1.getDate().toString(),
-      ins_end_date:
-        selectedDate_2.getFullYear().toString() +
-        selectedDate_2.getMonth().toString() +
-        selectedDate_2.getDate().toString(),
+        selectedDate_1.getFullYear().toString() + start_m + start_d,
+
+      ins_end_date: selectedDate_2.getFullYear().toString() + end_m + end_d,
     };
+
     dispatch(getBidInfoAsync.request(param));
   };
 
   function forNavagiate() {
-    console.log('bidDetailInfoData 확인입니다 >> ', bidDetailInfoData);
     navigation.navigate('NewSignUp', {
       data: bidDetailInfoData,
     });
   }
   function forNavagiategggggggg() {
-    console.log('bidDetailInfoData 확인입니다 >> ', bidDetailInfoData);
-
     navigation.navigate('NewSignUp', {});
   }
 

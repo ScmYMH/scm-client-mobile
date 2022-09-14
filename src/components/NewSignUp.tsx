@@ -25,10 +25,9 @@ const NewSignUp = ({route}: any) => {
   const bidSeq = useSelector(
     (state: RootState) => state.bidInfo.bidInfoPostList.data,
   );
-  console.log('bidSeq', bidSeq);
+
   const lspName = ['(PD) Spot 해송-Japan'];
   const detailData = route.params.data;
-  console.log('detailData >> ', detailData);
   useEffect(() => {
     if (detailData == null) {
       setSubj('');
@@ -120,13 +119,6 @@ const NewSignUp = ({route}: any) => {
   };
 
   const onSubmitPostNotiInfo = () => {
-    // let detailSubj = detailData[0].subj;
-    // if (detailSubj != null) {
-    //   setSubj(detailSubj);
-    // }
-
-    console.log('forUpdate >> ', forUpdate);
-
     const param = {
       subj: subj,
       bltn_content: bltnContent,
@@ -141,7 +133,6 @@ const NewSignUp = ({route}: any) => {
     };
 
     if (forUpdate == 0) {
-      console.log('보낼때 param값 확인 >> ', param);
       dispatch(postBidInfoAsync.request(param));
       Alert.alert('저장', '해당 공지문이 저장되었습니다', [{text: '확인'}], {
         cancelable: true,
@@ -193,7 +184,7 @@ const NewSignUp = ({route}: any) => {
       });
     } else if (forUpdate == 0) {
       dispatch(sendEmailAsync.request(mailParam_2));
-      console.log('mailP >> ', mailParam_2);
+
       Alert.alert('메일발송', '메일 발송이 완료되었습니다', [{text: '확인'}], {
         cancelable: true,
         onDismiss: () => {},
