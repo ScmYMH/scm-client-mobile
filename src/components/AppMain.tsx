@@ -86,7 +86,7 @@ const AppMain = ({navigation}: any) => {
             alignItems: 'center',
             alignContent: 'center',
           }}>
-          <Text style={{marginTop: 8}}>등록일</Text>
+          <Text style={{marginTop: 8, fontWeight: 'bold'}}>등록일</Text>
         </View>,
 
         <View style={{flexDirection: 'row', alignSelf: 'center'}}>
@@ -131,7 +131,7 @@ const AppMain = ({navigation}: any) => {
             alignItems: 'center',
             alignContent: 'center',
           }}>
-          <Text style={{marginTop: 8}}>제목</Text>
+          <Text style={{marginTop: 8, fontWeight: 'bold'}}>제목</Text>
         </View>,
         <TextInput
           style={{width: 1500}}
@@ -142,6 +142,8 @@ const AppMain = ({navigation}: any) => {
 
     row: {height: 220},
   };
+
+  const [insdate, setInsDate] = useState([]);
 
   const {data: bidInfoData} = useSelector(
     (state: RootState) => state.bidInfo.bidInfoList,
@@ -274,7 +276,7 @@ const AppMain = ({navigation}: any) => {
               }}>
               <Row
                 style={{backgroundColor: 'lightgray'}}
-                widthArr={[25, 160, 45, 140, 150, 70]}
+                widthArr={[25, 160, 55, 140, 170, 60]}
                 data={CONTENT.tableHead}
               />
               {bidInfoData
@@ -284,14 +286,18 @@ const AppMain = ({navigation}: any) => {
                         onPress={() => detailInfo(content.bltn_content_no)}>
                         <Row
                           data={[
-                            i + 1,
-                            content.subj,
-                            content.ins_person_nm,
-                            content.ins_date + ' ' + content.ins_time,
+                            '  ' + (i + 1),
+                            ' ' + content.subj + ' ',
+                            ' ' + content.ins_person_nm + ' ',
+                            content.ins_date +
+                              ' ' +
+                              content.ins_time.substring(0, 2) +
+                              ':' +
+                              content.ins_time.substring(2, 4),
                             content.lsp_grp_nm,
-                            content.dw_mail_send_f,
+                            '      ' + content.dw_mail_send_f,
                           ]}
-                          widthArr={[25, 160, 45, 140, 150, 70]}
+                          widthArr={[25, 160, 55, 140, 170, 60]}
                           style={{
                             flex: 1,
                             borderWidth: 0.5,
