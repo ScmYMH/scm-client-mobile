@@ -27,13 +27,6 @@ const NewSignUp = ({route}: any) => {
   const bidSeq = useSelector(
     (state: RootState) => state.bidInfo.bidInfoPostList.data,
   );
-  //const lspgrpnm = useSelector((state: RootState) => state.bidInfo.lspgrpnm);
-
-  // const getLspGrpNm = () => {
-  //   dispatch(getLspGrpNmAsync.request(''));
-  // };
-
-  //console.log('aaaaaaaaaaaaaa >> ', lspgrpnm.data?.lsp_grp_nm);
   const lspName = ['(PD) Spot 해송-Japan', '중국해송']; //lspGrpNm
   const detailData = route.params.data;
   console.log('detailData => ', detailData);

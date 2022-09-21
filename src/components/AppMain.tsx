@@ -41,7 +41,6 @@ const AppMain = ({navigation}: any) => {
   const [selectedDate_1, setSelectedDate_1] = useState(new Date());
   const [selectedDate_2, setSelectedDate_2] = useState(new Date());
 
-  console.log('date > ', selectedDate_1);
   const handleConfirm_1 = (date: Date) => {
     setSelectedDate_1(date);
 
@@ -92,11 +91,11 @@ const AppMain = ({navigation}: any) => {
 
         <View style={{flexDirection: 'row', alignSelf: 'center'}}>
           <Text>
-            {selectedDate_1.getFullYear().toString() +
+            {selectedDate_1.getFullYear() +
               '/' +
-              selectedDate_1.getMonth().toString() +
+              (selectedDate_1.getMonth() + 1) +
               '/' +
-              selectedDate_1.getDate().toString()}
+              selectedDate_1.getDate()}
           </Text>
           <TouchableOpacity>
             <CalendarMonthIcon
@@ -111,11 +110,11 @@ const AppMain = ({navigation}: any) => {
             alignSelf: 'center',
           }}>
           <Text>
-            {selectedDate_2.getFullYear().toString() +
+            {selectedDate_2.getFullYear() +
               '/' +
-              selectedDate_2.getMonth().toString() +
+              (selectedDate_2.getMonth() + 1) +
               '/' +
-              selectedDate_2.getDate().toString()}
+              selectedDate_2.getDate()}
           </Text>
           <TouchableOpacity style={{alignItems: 'flex-end'}}>
             <CalendarMonthIcon
@@ -156,15 +155,13 @@ const AppMain = ({navigation}: any) => {
   const dispatch = useDispatch();
 
   const onSubmitSearch = () => {
-    let start_m;
+    let start_m = (selectedDate_1.getMonth() + 1).toString();
     let start_d;
-    let end_m;
+    let end_m = (selectedDate_2.getMonth() + 1).toString();
     let end_d;
 
-    if (selectedDate_1.getMonth().toString().length == 1) {
-      start_m = '0' + selectedDate_1.getMonth().toString();
-    } else {
-      start_m = selectedDate_1.getMonth().toString();
+    if (start_m.length == 1) {
+      start_m = '0' + start_m;
     }
 
     if (selectedDate_1.getDate().toString().length == 1) {
@@ -173,10 +170,8 @@ const AppMain = ({navigation}: any) => {
       start_d = selectedDate_1.getDate().toString();
     }
 
-    if (selectedDate_2.getMonth().toString().length == 1) {
-      end_m = '0' + selectedDate_2.getMonth().toString();
-    } else {
-      end_m = selectedDate_2.getMonth().toString();
+    if (end_m.length == 1) {
+      end_m = '0' + end_m;
     }
 
     if (selectedDate_2.getDate().toString().length == 1) {
