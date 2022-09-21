@@ -206,7 +206,13 @@ const NewSignUp = ({route}: any) => {
     <>
       <AppHeader></AppHeader>
       <View>
-        <Text style={{fontWeight: 'bold', padding: 10, color: '#003366'}}>
+        <Text
+          style={{
+            fontWeight: 'bold',
+            padding: 15,
+            color: '#003366',
+            fontSize: 18,
+          }}>
           ● 공지문 작성
         </Text>
         <View style={{alignItems: 'flex-end', marginRight: 10}}>
@@ -249,7 +255,7 @@ const styles = StyleSheet.create({
   button_1: {
     width: 50,
     height: 30,
-    backgroundColor: 'gray',
+    backgroundColor: '#A0A0A0',
     borderRadius: 5,
     justifyContent: 'center',
     alignItems: 'center',
@@ -257,7 +263,7 @@ const styles = StyleSheet.create({
   button_2: {
     width: 70,
     height: 30,
-    backgroundColor: 'gray',
+    backgroundColor: '#A0A0A0',
     borderRadius: 5,
     justifyContent: 'center',
     alignItems: 'center',

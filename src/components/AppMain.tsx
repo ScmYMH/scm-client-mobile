@@ -41,6 +41,7 @@ const AppMain = ({navigation}: any) => {
   const [selectedDate_1, setSelectedDate_1] = useState(new Date());
   const [selectedDate_2, setSelectedDate_2] = useState(new Date());
 
+  console.log('date > ', selectedDate_1);
   const handleConfirm_1 = (date: Date) => {
     setSelectedDate_1(date);
 
@@ -58,22 +59,22 @@ const AppMain = ({navigation}: any) => {
   const CONTENT = {
     tableHead: [
       <View style={{alignItems: 'center'}}>
-        <Text style={{fontSize: 10, fontWeight: 'bold'}}>번호</Text>
+        <Text style={{fontSize: 15, fontWeight: 'bold'}}>번호</Text>
       </View>,
       <View style={{alignItems: 'center'}}>
-        <Text style={{fontSize: 10, fontWeight: 'bold'}}>제목</Text>
+        <Text style={{fontSize: 15, fontWeight: 'bold'}}>제목</Text>
       </View>,
       <View style={{alignItems: 'center'}}>
-        <Text style={{fontSize: 10, fontWeight: 'bold'}}>작성자</Text>
+        <Text style={{fontSize: 15, fontWeight: 'bold'}}>작성자</Text>
       </View>,
       <View style={{alignItems: 'center'}}>
-        <Text style={{fontSize: 10, fontWeight: 'bold'}}>등록일</Text>
+        <Text style={{fontSize: 15, fontWeight: 'bold'}}>등록일</Text>
       </View>,
       <View style={{alignItems: 'center'}}>
-        <Text style={{fontSize: 10, fontWeight: 'bold'}}>메일발송그룹</Text>
+        <Text style={{fontSize: 15, fontWeight: 'bold'}}>메일발송그룹</Text>
       </View>,
       <View style={{alignItems: 'center', height: 25, marginTop: 10}}>
-        <Text style={{fontSize: 10, fontWeight: 'bold'}}>메일발송여부</Text>
+        <Text style={{fontSize: 15, fontWeight: 'bold'}}>메일발송여부</Text>
       </View>,
     ],
     tableData: [
@@ -216,8 +217,14 @@ const AppMain = ({navigation}: any) => {
     <>
       <AppHeader></AppHeader>
       <ScrollView>
-        <Text style={{fontWeight: 'bold', padding: 10, color: '#003366'}}>
-          ● 공지문 작성
+        <Text
+          style={{
+            fontWeight: 'bold',
+            padding: 15,
+            color: '#003366',
+            fontSize: 18,
+          }}>
+          ● 공지문 목록
         </Text>
         <View style={{alignItems: 'flex-end', marginRight: 10}}>
           <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
@@ -276,7 +283,7 @@ const AppMain = ({navigation}: any) => {
               }}>
               <Row
                 style={{backgroundColor: 'lightgray'}}
-                widthArr={[25, 160, 55, 140, 170, 60]}
+                widthArr={[40, 160, 55, 140, 170, 60]}
                 data={CONTENT.tableHead}
               />
               {bidInfoData
@@ -297,7 +304,7 @@ const AppMain = ({navigation}: any) => {
                             content.lsp_grp_nm,
                             '      ' + content.dw_mail_send_f,
                           ]}
-                          widthArr={[25, 160, 55, 140, 170, 60]}
+                          widthArr={[40, 160, 55, 140, 170, 60]}
                           style={{
                             flex: 1,
                             borderWidth: 0.5,
@@ -320,7 +327,7 @@ const styles = StyleSheet.create({
   button_1: {
     width: 50,
     height: 30,
-    backgroundColor: 'gray',
+    backgroundColor: '#A0A0A0',
     borderRadius: 5,
     justifyContent: 'center',
     alignItems: 'center',
@@ -328,7 +335,7 @@ const styles = StyleSheet.create({
   button_2: {
     width: 70,
     height: 30,
-    backgroundColor: 'gray',
+    backgroundColor: '#A0A0A0',
     borderRadius: 5,
     justifyContent: 'center',
     alignItems: 'center',
