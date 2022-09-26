@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export async function getBidNotiApi(params: any) {
   const response = await axios.get<BidNotiInfo>(
-    `http://192.168.0.67:9095/bid/noti?ins_start_date=${params.ins_start_date}&ins_end_date=${params.ins_end_date}&subj=${params.subj}`,
+    `http://192.168.1.3:9095/bid/noti?ins_start_date=${params.ins_start_date}&ins_end_date=${params.ins_end_date}&subj=${params.subj}`,
   );
 
   return response.data;
@@ -10,7 +10,7 @@ export async function getBidNotiApi(params: any) {
 
 export async function postBidNotiApi(params: any) {
   const response = await axios.post<BidNotiPostInfo>(
-    `http://192.168.0.67:9095/bid/noti`,
+    `http://192.168.1.3:9095/bid/noti`,
     params,
   );
 
@@ -19,7 +19,7 @@ export async function postBidNotiApi(params: any) {
 
 export async function deleteBidNotiApi(bltn_content_no: any) {
   const response = await axios.put<any>(
-    `http://192.168.0.67:9095/bid/noti/${bltn_content_no}`,
+    `http://192.168.1.3:9095/bid/noti/${bltn_content_no}`,
   );
 
   return response.data;
@@ -27,7 +27,7 @@ export async function deleteBidNotiApi(bltn_content_no: any) {
 
 export async function getDetailBidInfoApi(bltn_content_no: any) {
   const response = await axios.get<BidNotiInfo>(
-    `http://192.168.0.67:9095/bid/noti/detail/${bltn_content_no}`,
+    `http://192.168.1.3:9095/bid/noti/detail/${bltn_content_no}`,
   );
 
   return response.data;
@@ -35,7 +35,7 @@ export async function getDetailBidInfoApi(bltn_content_no: any) {
 
 export async function updateBidNotiApi(params: any) {
   const response = await axios.put<BidNotiInfo>(
-    `http://192.168.0.67:9095/bid/noti`,
+    `http://192.168.1.3:9095/bid/noti`,
     params,
   );
 
@@ -44,7 +44,7 @@ export async function updateBidNotiApi(params: any) {
 
 export async function sendEmailApi(mail: any) {
   const response = await axios.post<MailInfo>(
-    `http://192.168.0.67:9095/mail/send`,
+    `http://192.168.1.3:9095/mail/send`,
     mail,
   );
 
@@ -53,7 +53,7 @@ export async function sendEmailApi(mail: any) {
 
 export async function lspGrpNmApi(param: any) {
   const response = await axios.get<LspGrpNm>(
-    `http://192.168.0.67:9095/bid/noti/lspNm`,
+    `http://192.168.1.3:9095/bid/noti/lspNm`,
     param,
   );
 
