@@ -6,6 +6,7 @@ import {
   TextInput,
   ScrollView,
   SafeAreaView,
+  Image,
 } from 'react-native';
 import React, {useState} from 'react';
 import CalendarMonthIcon from 'react-native-vector-icons/MaterialIcons';
@@ -20,6 +21,7 @@ import {
 } from '../modules/mobile/actions';
 import {RootState} from '../../saga';
 import {useEffect} from 'react';
+import Slogun from '../../assets/images/slogun.png';
 
 const AppMain = ({navigation}: any) => {
   const [isDatePickerVisible_1, setDatePickerVisibility_1] = useState(false);
@@ -211,6 +213,15 @@ const AppMain = ({navigation}: any) => {
   return (
     <>
       <AppHeader></AppHeader>
+      <Image
+        source={Slogun}
+        style={{
+          resizeMode: 'cover',
+          marginRight: 50,
+          marginLeft: 50,
+          marginTop: 20,
+          marginBottom: 10,
+        }}></Image>
       <ScrollView>
         <Text
           style={{
@@ -224,13 +235,13 @@ const AppMain = ({navigation}: any) => {
         <View style={{alignItems: 'flex-end', marginRight: 10}}>
           <View style={{flexDirection: 'row', alignItems: 'flex-end'}}>
             <TouchableOpacity style={styles.button_1} onPress={onSubmitSearch}>
-              <Text> 조회</Text>
+              <Text style={{fontWeight: 'bold'}}> 조회</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
               style={styles.button_2}
               onPress={forNavagiategggggggg}>
-              <Text>신규등록</Text>
+              <Text style={{fontWeight: 'bold'}}>신규등록</Text>
             </TouchableOpacity>
           </View>
         </View>

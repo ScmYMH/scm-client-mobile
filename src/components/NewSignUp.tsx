@@ -220,15 +220,15 @@ const NewSignUp = ({route}: any) => {
             <TouchableOpacity
               style={styles.button_1}
               onPress={onSubmitPostNotiInfo}>
-              <Text>저장</Text>
+              <Text style={{fontWeight: 'bold'}}>저장</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.button_2} onPress={onSendMail}>
-              <Text>메일발송</Text>
+              <Text style={{fontWeight: 'bold'}}>메일발송</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.button_2}
               onPress={onSubmintDeleteNotiInfo}>
-              <Text>삭제</Text>
+              <Text style={{fontWeight: 'bold'}}>삭제</Text>
             </TouchableOpacity>
           </View>
         </View>
